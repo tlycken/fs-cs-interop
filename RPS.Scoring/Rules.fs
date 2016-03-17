@@ -14,9 +14,7 @@ module Rules =
         | Paper -> Rock
         | Scissors -> Paper
 
-    let outcome (a' : Play option) (b' : Play option) =
-        match (a',b') with
-        | Some a, Some b -> if a.Move = above b.Move then Some (Winner a.Player)
-                            else if b.Move = above a.Move then Some (Winner b.Player)
-                            else Some Draw
-        | _ -> None
+    let outcome (a : Play) (b : Play) =
+        if a.Move = above b.Move then Winner a.Player
+        else if b.Move = above a.Move then Winner b.Player
+        else Draw

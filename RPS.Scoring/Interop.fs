@@ -1,4 +1,5 @@
 ﻿namespace RPS.Scoring
+open RPS.IO
 
 [<System.Runtime.CompilerServices.Extension>]
 module Interop =

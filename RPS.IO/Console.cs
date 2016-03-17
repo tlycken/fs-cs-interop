@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace RPS.IO
 {
-    public static class IO
+    public static class Console
     {
         public static string Prompt(string query, params string[] options)
         {
-            Console.WriteLine(query);
+            System.Console.WriteLine(query);
             if (options.Length > 0)
             {
-                Console.Write($"[{string.Join("/", options)}]");
+                System.Console.Write($"[{string.Join("/", options)}]");
             }
-            Console.Write("> ");
+            System.Console.Write("> ");
 
-            var input = Console.ReadLine().Trim().ToLowerInvariant();
+            var input = System.Console.ReadLine().Trim().ToLowerInvariant();
 
             while (!input.IsValid(options))
             {

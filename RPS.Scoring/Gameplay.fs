@@ -4,8 +4,8 @@ open RPS.Scoring.Rules
 
 module Gameplay =
 
-    let yesOrNo = (Some ["Y"; "n"])
-    let validMoves = (Some ["rock"; "paper"; "scissors"]);
+    let yesOrNo = ["Y"; "n"]
+    let validMoves = ["rock"; "paper"; "scissors"];
 
     let getMove (p : Player) =
         let input = prompt (sprintf "%s, make a move!" p.Name) validMoves
@@ -21,16 +21,22 @@ module Gameplay =
         | Some m' -> Some { Player = p; Move = m' }
         | _ -> None
 
+    let getOutcome (m1 : Play option) (m2 : Play option) =
+        match (m1, m2) with
+        | (Some m1', Some m2') -> Some (outcome m1' m2')
+        | _ -> None
+
+    let getMessage (o : Outcome option) =
+        match o with
+        | Some (Winner w) -> sprintf "%s won this round!" w.Name
+        | Some Draw -> "Nobody wins!"
+        | None -> "Something went wrong"
+
     let rec playGame (p1 : Player) (p2 : Player) =
         let m1 = getPlay p1
         let m2 = getPlay p2
-
-        let o = outcome m1 m2
-
-        let output = match o with
-        | Some (Winner w) -> sprintf "%s won this round!" w.Name
-        | Some Draw -> sprintf "Nobody wins!"
-        | None -> "Something went wrong"
+        let o = getOutcome m1 m2
+        let output = getMessage o
 
         printfn "%s" output
 
